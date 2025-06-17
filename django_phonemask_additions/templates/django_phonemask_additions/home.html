@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+<head>
+    <!-- Мета-данные для главной страницы -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Система управления</title>
+    <style>
+        .main-zone { text-align: center; padding: 90px; background: #b3e5fc; }
+        .nav-zone { list-style: none; padding: 0; margin-top: 40px; }
+        .nav-point { margin: 22px 0; }
+        .nav-link { color: #01579b; text-decoration: none; font-size: 1.5em; }
+    </style>
+</head>
+<body>
+    <!-- Главное меню -->
+    <main class="main-zone">
+        <h1>Добро пожаловать!</h1>
+        <ul class="nav-zone">
+            {% if user.is_authenticated %}
+                {% if user.role == 'admin' %}
+                    <li class="nav-point"><a href="{% url 'admin_panel' %}" class="nav-link">Админ-панель</a></li>
+                {% endif %}
+                <li class="nav-point"><a href="{% url 'validation' %}" class="nav-link">Проверить данные</a></li>
+                <li class="nav-point"><a href="{% url 'password_change' %}" class="nav-link">Сменить пароль</a></li>
+                <li class="nav-point"><a href="{% url 'logout' %}" class="nav-link">Выйти</a></li>
+            {% else %}
+                <li class="nav-point"><a href="{% url 'login_page' %}" class="nav-link">Войти</a></li>
+                <li class="nav-point"><a href="{% url 'validation' %}" class="nav-link">Проверить данные</a></li>
+            {% endif %}
+        </ul>
+    </main>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+<head>
+    <!-- Мета-данные для входа -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход</title>
+    <style>
+        .auth-zone { margin: 70px; padding: 40px; background: #e0e0e0; }
+        .form-zone { margin-bottom: 35px; }
+        .auth-btn { padding: 15px 22px; background: #0288d1; color: white; border: none; }
+        .error-text { color: #c62828; }
+    </style>
+</head>
+<body>
+    <!-- Форма входа -->
+    <main class="auth-zone">
+        <h3>Авторизация</h3>
+        <form method="post" class="form-zone">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="auth-btn">Войти</button>
+        </form>
+        {% if error %}
+            <p class="error-text">{{ error }}</p>
+        {% endif %}
+    </main>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+<head>
+    <!-- Мета-данные для админ-панели -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Управление</title>
+    <style>
+        .control-zone { margin: 70px; }
+        .users-table { width: 100%; border-collapse: collapse; margin-top: 40px; }
+        .users-table th, .users-table td { border: 1px solid #b0bec5; padding: 20px; }
+        .control-link { color: #01579b; margin-right: 30px; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <!-- Панель управления -->
+    <main class="control-zone">
+        <h3>Управление пользователями</h3>
+        <p>
+            <a href="{% url 'user_registration' %}" class="control-link">Добавить пользователя</a>
+            <a href="{% url 'home_page' %}" class="control-link">На главную</a>
+        </p>
+        <table class="users-table">
+            <tr>
+                <th>Имя</th>
+                <th>Роль</th>
+                <th>Статус</th>
+                <th>Действия</th>
+            </tr>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.get_role_display }}</td>
+                    <td>{{ user.is_blocked|yesno:"Заблокирован,Активен" }}</td>
+                    <td><a href="{% url 'user_update' user.id %}" class="control-link">Изменить</a></td>
+                </tr>
+            {% endfor %}
+        </table>
+    </main>
+</body>
+</html>

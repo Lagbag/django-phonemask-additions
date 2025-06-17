@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+<head>
+    <!-- Мета-данные для валидации -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Проверка телефона</title>
+    <style>
+        .validate-section { margin: 40px; padding: 25px; background: #f1f3f5; }
+        .input-group { margin-bottom: 20px; }
+        .action-btn { padding: 10px 15px; margin-right: 12px; background: #007bff; color: white; border: none; }
+        .error-msg { color: #dc3545; }
+        .result-msg { color: #28a745; }
+    </style>
+</head>
+<body>
+    <!-- Форма проверки номера телефона -->
+    <main class="validate-section">
+        <h3>Валидация номера телефона</h3>
+        <form method="post" class="input-group">
+            {% csrf_token %}
+            <input type="text" name="phone" value="{{ phone|default_if_none:'' }}" placeholder="Введите номер телефона">
+            <button type="submit" name="get_data" class="action-btn">Запросить</button>
+            <button type="submit" name="send_result" class="action-btn">Отправить</button>
+            <p><a href="{% url 'home_page' %}" class="success-link">На главную</a></p>
+        </form>
+        {% if result %}
+            <p class="result-msg">{{ result }}</p>
+        {% endif %}
+        {% if error %}
+            <p class="error-msg">{{ error }}</p>
+        {% endif %}
+    </main>
+</body>
+</html>
